@@ -30,6 +30,8 @@ inputs:
     default: 0.7
 runs:
   using: composite
+  outputs:
+    REPLY: ${{ steps.send_message.outputs.REPLY }}
   steps:
     - name: Send message to GPT
       id: send_message
