@@ -20,6 +20,9 @@ jobs:
           message: |
             Title: ${{ github.event.issue.title }}
             Body: ${{ github.event.issue.body }}
+
+      - name: Output GPT Response
+        run: echo "${{ steps.chat.outputs.response }}"
   
       - name: Create comment
         uses: actions-cool/issues-helper@v3
