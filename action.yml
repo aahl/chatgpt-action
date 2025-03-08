@@ -1,0 +1,48 @@
+name: ChatGPT Action
+description: Send a message to ChatGPT
+branding:
+  icon: aperture
+  color: black
+inputs:
+  openai_api_base:
+    description: API base url
+    required: false
+    secret: true
+    default: https://api.openai.com/v1
+  openai_api_key:
+    description: OpenAI API key
+    required: true
+    secret: true
+  message:
+    description: Message to send to GPT
+    required: true
+  prompt:
+    description: Prompt for GPT
+    required: false
+    default: You are a helpful assistant.
+  model:
+    description: GPT model to use
+    required: false
+    default: gpt-4o
+  temperature:
+    description: Temperature for GPT
+    required: false
+    default: 0.7
+runs:
+  using: composite
+  steps:
+    - name: Send message to GPT
+      id: send_message
+      shell: bash
+      run: |
+        response=$(curl -s -X POST \
+        ${{ inputs.openai_api_base }}/chat/completions \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Bearer ${{ inputs.openai_api_key }}" \
+        -d '{
+             "model": "${{ inputs.model }}",
+             "messages": [{"role": "system", "content": "${{ inputs.prompt }}"}, {"role": "user", "content": "${{ inputs.message }}"}],
+             "temperature": ${{ inputs.temperature }}
+           }')
+
+        echo "$response" | jq -r '.choices[0].message.content // .error.message'
