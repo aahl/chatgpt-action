@@ -4,13 +4,13 @@ branding:
   icon: aperture
   color: black
 inputs:
-  openai_api_base:
+  api_base:
     description: API base url
     required: false
     secret: true
     default: https://api.openai.com/v1
-  openai_api_key:
-    description: OpenAI API key
+  api_key:
+    description: API key
     required: true
     secret: true
   message:
@@ -36,9 +36,9 @@ runs:
       shell: bash
       run: |
         response=$(curl -s -X POST \
-        ${{ inputs.openai_api_base }}/chat/completions \
+        ${{ inputs.api_base }}/chat/completions \
         -H "Content-Type: application/json" \
-        -H "Authorization: Bearer ${{ inputs.openai_api_key }}" \
+        -H "Authorization: Bearer ${{ inputs.api_key }}" \
         -d '{
              "model": "${{ inputs.model }}",
              "messages": [{"role": "system", "content": "${{ inputs.prompt }}"}, {"role": "user", "content": "${{ inputs.message }}"}],
