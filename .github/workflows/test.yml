@@ -10,7 +10,7 @@ jobs:
     steps:
       - id: chat
         name: Generated comment via ChatGPT
-        uses: aahl/chatgpt-action@v1
+        uses: aahl/chatgpt-action@main
         with:
           api_base: ${{ secrets.CHATGPT_API_BASE }}
           api_key: ${{ secrets.CHATGPT_API_KEY }}
