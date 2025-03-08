@@ -54,4 +54,5 @@ runs:
         -d "$body")
 
         reply=$(echo "$response" | jq -r '.choices[0].message.content // .error.message')
-        echo "REPLY=$reply" >> "$GITHUB_OUTPUT"
+        echo "$reply"
+        echo "REPLY='$reply'" >> "$GITHUB_OUTPUT"
