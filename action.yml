@@ -35,8 +35,8 @@ runs:
       id: send_message
       shell: bash
       run: |
-        prompt="${{ inputs.prompt }}" | jq -R '@json'
-        message="${{ inputs.message }}" | jq -R '@json'
+        prompt=$(echo "${{ inputs.prompt }}" | jq -R '@json')
+        message=$(echo "${{ inputs.message }}" | jq -R '@json')
         echo "$message"
         body=$(jq -n \
         --arg prompt "$prompt" \
