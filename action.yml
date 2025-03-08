@@ -35,9 +35,12 @@ runs:
       id: send_message
       shell: bash
       run: |
+        prompt="${{ inputs.prompt }}"
+        message="${{ inputs.message }}"
+        echo "message: $message"
         body=$(jq -n \
-        --arg prompt "${{ inputs.prompt }}" \
-        --arg message "${{ inputs.message }}"" \
+        --arg prompt "$prompt" \
+        --arg message "$message"" \
         '{
            "model": "${{ inputs.model }}",
            "messages": [{"role": "system", "content": $prompt}, {"role": "user", "content": $message}],
