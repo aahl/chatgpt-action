@@ -46,7 +46,10 @@ runs:
         --arg message "$message" \
         '{
            "model": "${{ inputs.model }}",
-           "messages": [{"role": "system", "content": $prompt}, {"role": "user", "content": $message}],
+           "messages": [
+             {"role": "developer", "content": $prompt},
+             {"role": "user", "content": $message}
+           ],
            "temperature": ${{ inputs.temperature }}
          }')
         echo "$body"
