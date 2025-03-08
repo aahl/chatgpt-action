@@ -35,15 +35,21 @@ runs:
       id: send_message
       shell: bash
       run: |
+        prompt="${{ inputs.prompt }}" | jq -R '@json'
+        message="${{ inputs.message }}" | jq -R '@json'
+        body=$(jq -n \
+        --arg prompt "$prompt" \
+        --arg message "$message" \
+        '{
+           "model": "${{ inputs.model }}",
+           "messages": [{"role": "system", "content": $prompt}, {"role": "user", "content": $message}],
+           "temperature": ${{ inputs.temperature }}
+         }')
         response=$(curl -s -X POST \
         ${{ inputs.api_base }}/chat/completions \
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer ${{ inputs.api_key }}" \
-        -d '{
-             "model": "${{ inputs.model }}",
-             "messages": [{"role": "system", "content": "${{ inputs.prompt }}"}, {"role": "user", "content": "${{ inputs.message }}"}],
-             "temperature": ${{ inputs.temperature }}
-           }')
+        -d "$body")
 
         reply=$("$response" | jq -r '.choices[0].message.content // .error.message')
         echo "REPLY=$reply" >> "$GITHUB_OUTPUT"
