@@ -45,4 +45,5 @@ runs:
              "temperature": ${{ inputs.temperature }}
            }')
 
-        echo "$response" | jq -r '.choices[0].message.content // .error.message'
+        reply=$("$response" | jq -r '.choices[0].message.content // .error.message')
+        echo "REPLY=$reply" >> "$GITHUB_OUTPUT"
