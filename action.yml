@@ -37,6 +37,7 @@ runs:
       run: |
         prompt="${{ inputs.prompt }}" | jq -R '@json'
         message="${{ inputs.message }}" | jq -R '@json'
+        echo "$message"
         body=$(jq -n \
         --arg prompt "$prompt" \
         --arg message "$message" \
