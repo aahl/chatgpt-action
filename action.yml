@@ -45,6 +45,7 @@ runs:
            "messages": [{"role": "system", "content": $prompt}, {"role": "user", "content": $message}],
            "temperature": ${{ inputs.temperature }}
          }')
+        echo "$body"
         response=$(curl -s -X POST \
         ${{ inputs.api_base }}/chat/completions \
         -H "Content-Type: application/json" \
