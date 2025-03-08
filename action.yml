@@ -55,4 +55,8 @@ runs:
 
         reply=$(echo "$response" | jq -r '.choices[0].message.content // .error.message')
         echo "$reply"
-        echo "REPLY='$reply'" >> "$GITHUB_OUTPUT"
+        {
+          echo 'REPLY<<EOF'
+          echo "$reply"
+          echo EOF
+        } >> "$GITHUB_OUTPUT"
