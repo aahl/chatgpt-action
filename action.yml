@@ -41,7 +41,6 @@ runs:
       run: |
         prompt="${{ inputs.prompt }}"
         message="${{ inputs.message }}"
-        echo "message: $message"
         body=$(jq -n \
         --arg prompt "$prompt" \
         --arg message "$message" \
@@ -58,7 +57,6 @@ runs:
         -d "$body")
 
         reply=$(echo "$response" | jq -r '.choices[0].message.content // .error.message')
-        echo "$reply"
         {
           echo 'REPLY<<EOF'
           echo "$reply"
