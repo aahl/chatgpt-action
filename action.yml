@@ -40,7 +40,7 @@ runs:
         echo "message: $message"
         body=$(jq -n \
         --arg prompt "$prompt" \
-        --arg message "$message"" \
+        --arg message "$message" \
         '{
            "model": "${{ inputs.model }}",
            "messages": [{"role": "system", "content": $prompt}, {"role": "user", "content": $message}],
