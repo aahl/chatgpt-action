@@ -17,8 +17,8 @@ jobs:
           model: deepseek-v3
           prompt: |
             You are a Github issue assistant, please answer this question.
-            It is necessary to reply in the corresponding language based on the language of the user's question.
           message: |
+            Reply in the language of the user's question.
             Title: ${{ github.event.issue.title }}
             Body: ${{ github.event.issue.body }}
 
