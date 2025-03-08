@@ -28,10 +28,12 @@ inputs:
     description: Temperature for GPT
     required: false
     default: 0.7
+outputs:
+  REPLY:
+    description: Reply content from GPT
+    value: ${{ steps.send_message.outputs.REPLY }}
 runs:
   using: composite
-  outputs:
-    REPLY: ${{ steps.send_message.outputs.REPLY }}
   steps:
     - name: Send message to GPT
       id: send_message
