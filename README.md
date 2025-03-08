@@ -15,8 +15,8 @@ jobs:
         name: Generated comment via ChatGPT
         uses: aahl/chatgpt-action@v1
         with:
-          # chatgpt_api_base: https://api.deepseek.com/v1
-          chatgpt_api_key: ${{ secrets.CHATGPT_API_KEY }}
+          # api_base: https://api.deepseek.com/v1
+          api_key: ${{ secrets.CHATGPT_API_KEY }}
           model: deepseek-v3
           prompt: |
             You are a Github issue assistant, please answer this question.
