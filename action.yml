@@ -40,7 +40,10 @@ runs:
       shell: bash
       run: |
         prompt="${{ inputs.prompt }}"
-        message="${{ inputs.message }}"
+        message=$(cat <<EOF
+        ${{ inputs.message }}
+        EOF
+        )
         body=$(jq -n \
         --arg prompt "$prompt" \
         --arg message "$message" \
