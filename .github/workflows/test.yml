@@ -21,7 +21,9 @@ jobs:
             ${{ github.event.issue.title }}
             ${{ github.event.issue.body }}
 
-            > Reply in the language of the user's question.
+            > 以上为用户提交issue的标题(首行)及内容
+            > 根据内容中“问题详情”的语言用相应的语言回复，无内容详情时使用标题的语言，不明确时使用英文
+            > 如果该issue返回的是某类设备的问题，检查用户是否提供了设备型号、实体属性和日志，未提供时提醒用户
 
       - name: Create comment
         uses: actions-cool/issues-helper@v3
