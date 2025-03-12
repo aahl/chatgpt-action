@@ -8,6 +8,20 @@ jobs:
   chat:
     runs-on: ubuntu-latest
     steps:
+      - name: Format Message
+        id: format
+        shell: bash
+        run: |
+          body=$(cat <<EOF
+          ${{ github.event.issue.body }}
+          EOF
+          | sed 's/\s*\/\s*[\x{4E00}-\x{9FFF}]/g')
+          {
+            echo 'BODY<<EOF'
+            echo "$body"
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
+
       - id: chat
         name: Generated comment via ChatGPT
         uses: aahl/chatgpt-action@main
@@ -19,7 +33,7 @@ jobs:
             You are a Github issue assistant, please answer this question.
           message: |
             ${{ github.event.issue.title }}
-            ${{ github.event.issue.body }}
+            ${{ steps.format.outputs.BODY }}
 
             > 以上为用户提交issue的标题(首行)及内容
             > 必须根据内容中“问题详情”的语种用相应的语种回复，无内容详情时使用标题的语种，不明确时使用英文
