@@ -14,8 +14,8 @@ jobs:
         run: |
           body=$(cat <<EOF
           ${{ github.event.issue.body }}
-          EOF
-          | sed 's/\s*\/\s*[\x{4E00}-\x{9FFF}]/g')
+          EOF)
+          body=$(echo "$body" | sed 's!\s*/\s*[\x{4E00}-\x{9FFF}]+!g')
           {
             echo 'BODY<<EOF'
             echo "$body"
