@@ -4,12 +4,14 @@ on:
   issues:
     types: [opened, edited]
 
-env:
-  IS_OPENED: ${{ github.event_name == 'opened' }}
-  IS_EDITED: ${{ github.event_name == 'edited' }}
-  COMMENTS: ${{ github.event.issue.comments }}
-
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - shell: bash
+        run: |
+          echo event=${{ github.event_name }}
+          echo comments=${{ github.event.issue.comments }}
   chat:
     if: |-
       github.event_name == 'opened'
