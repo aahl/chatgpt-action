@@ -6,6 +6,11 @@ on:
 
 jobs:
   chat:
+    if: |-
+      ${{
+        github.event_name == "opened"
+        || (github.event_name == "edited" && github.event.issue.comments <= 1 )
+      }}
     runs-on: ubuntu-latest
     steps:
       - name: Format Message
