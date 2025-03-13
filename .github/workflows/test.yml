@@ -4,11 +4,16 @@ on:
   issues:
     types: [opened, edited]
 
+env:
+  IS_OPENED: ${{ github.event_name == 'opened' }}
+  IS_EDITED: ${{ github.event_name == 'edited' }}
+  COMMENTS: ${{ github.event.issue.comments }}
+
 jobs:
   chat:
     if: |-
       github.event_name == 'opened'
-      || (github.event_name == 'edited' && github.event.issue.comments <= 20)
+      || (github.event_name == 'edited' && github.event.issue.comments <= 30)
     runs-on: ubuntu-latest
     steps:
       - name: Format Message
