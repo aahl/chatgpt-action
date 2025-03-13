@@ -11,11 +11,12 @@ jobs:
       - shell: bash
         run: |
           echo event=${{ github.event_name }}
+          echo action=${{ github.event.action }}
           echo comments=${{ github.event.issue.comments }}
   chat:
     if: |-
-      github.event_name == 'opened'
-      || (github.event_name == 'edited' && github.event.issue.comments <= 30)
+      github.event.action == 'opened'
+      || (github.event.action == 'edited' && github.event.issue.comments <= 10)
     runs-on: ubuntu-latest
     steps:
       - name: Format Message
